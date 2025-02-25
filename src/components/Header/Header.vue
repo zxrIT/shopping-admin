@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import userIcon from "@/assets/static/images/user.png"
 import githubIcon from "@/assets/static/images/github.png"
+import {useUserStore} from "@/store";
+
+const userStore = useUserStore();
 
 const navigateGithub = () => {
     window.open(import.meta.env.VITE_GITHUB_URL, "_blank")
@@ -16,7 +19,8 @@ const navigateGithub = () => {
                 </div>
             </el-tooltip>
             <div class="icon">
-                <img :src="userIcon" alt="user"/>
+                <img :src="userStore.userState.userIcon.length>0
+                ?userStore.userState.userIcon:userIcon" alt="user"/>
             </div>
         </div>
     </div>

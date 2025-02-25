@@ -14,7 +14,7 @@ watchEffect(async () => {
             productType.push(item)
         })
     }
-    const response = await getCarProductService<BaseResponse<ProductData>>();
+    const response = await getCarProductService<BaseResponse<ProductData[]>>();
     if (response.code === 200) {
         response.data.forEach((item: ProductData) => {
             const tempProduct: ProductShow = {

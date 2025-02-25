@@ -1,13 +1,19 @@
 <script setup lang="ts">
 import {ref, reactive} from 'vue'
+import {useRouter} from 'vue-router'
 import type {FormInstance, FormRules} from 'element-plus'
 import type {BaseResponse} from "@/typings/response/BaseResponse.ts";
+import type {IUser} from "@/typings/user.ts";
 import {ElMessage} from 'element-plus'
 import {useLocalStorage} from "@/hooks/useLocalStorage.ts";
+import {loginService} from "@/service/loginService.ts";
+import {useUserStore} from "@/store";
 
 const formSize = ref('default')
 const ruleFormRef = ref<FormInstance>()
+const router = useRouter()
 const {setStorage} = useLocalStorage()
+const userStore = useUserStore()
 
 const ruleForm = reactive({
     username: '',
@@ -25,8 +31,17 @@ const rules = reactive<FormRules>({
 
 const submitForm = async (formEl: FormInstance | undefined) => {
     if (!formEl) return
-    await formEl.validate(async (valid) => {
-
+    await formEl.validate(async () => {
+        const loginResponse = await loginService<BaseResponse<IUser>>(ruleForm)
+        if (loginResponse.code === 200) {
+            console.log(loginResponse.data)
+            ElMessage.success(loginResponse.message)
+            setStorage("user", JSON.stringify(loginResponse.data))
+            userStore.changeUserAction(loginResponse.data)
+            await router.push('/')
+        } else {
+            ElMessage.error(loginResponse.data)
+        }
     })
 }
 </script>

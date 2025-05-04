@@ -36,7 +36,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
         if (loginResponse.code === 200) {
             console.log(loginResponse.data)
             ElMessage.success(loginResponse.message)
-            setStorage("user", JSON.stringify(loginResponse.data))
+            setStorage("userShoppingObject", JSON.stringify(loginResponse.data))
             userStore.changeUserAction(loginResponse.data)
             await router.push('/')
         } else {

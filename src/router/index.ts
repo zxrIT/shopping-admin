@@ -51,7 +51,7 @@ router.beforeEach((to, from, next) => {
     }
     const {getStorage} = useLocalStorage()
     const userStore = useUserStore();
-    const user: IUser = JSON.parse(getStorage("user"))
+    const user: IUser = JSON.parse(getStorage("userShoppingObject"))
     if (user === undefined || user === null) {
         ElMessage.error('您还没有登录或登录已过期，请重新登录后再使用')
         next("/login")

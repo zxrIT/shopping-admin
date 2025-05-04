@@ -12,6 +12,16 @@ export const useUserStore = defineStore("user", () => {
         userState.userIcon = user.userIcon;
     }
 
+    const logout = () => {
+        userState.id = "";
+        userState.username = "";
+        userState.password = "";
+        userState.account = "";
+        userState.roleId = 0;
+        userState.userIcon = "";
+        localStorage.removeItem('userShoppingObject');
+    }
+
     const userState = reactive<IUser>({
         id: "",
         username: "",
@@ -24,5 +34,6 @@ export const useUserStore = defineStore("user", () => {
     return {
         userState,
         changeUserAction,
+        logout
     }
 })

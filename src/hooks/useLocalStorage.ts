@@ -1,14 +1,34 @@
 import type {IStorage} from "../typings/hooks/localStorage.ts";
 
-export function useLocalStorage(): IStorage {
-    const setStorage = (key: string, payload: string): void => {
-        localStorage.setItem(key, payload)
+export const useLocalStorage = () => {
+    const setStorage = (key: string, value: any) => {
+        try {
+            localStorage.setItem(key, value)
+        } catch (error) {
+            console.error('存储数据失败:', error)
+        }
     }
-    const removeStorage = (key: string): void => {
-        localStorage.removeItem(key)
+
+    const getStorage = (key: string) => {
+        try {
+            return localStorage.getItem(key)
+        } catch (error) {
+            console.error('获取数据失败:', error)
+            return null
+        }
     }
-    const getStorage = (key: string): string => {
-        return localStorage.getItem(key)!
+
+    const removeStorage = (key: string) => {
+        try {
+            localStorage.removeItem(key)
+        } catch (error) {
+            console.error('删除数据失败:', error)
+        }
     }
-    return {setStorage, getStorage, removeStorage}
+
+    return {
+        setStorage,
+        getStorage,
+        removeStorage
+    }
 }

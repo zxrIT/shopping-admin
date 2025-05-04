@@ -1,8 +1,12 @@
 export interface IUser {
-    id: string;
-    username: string;
-    roleId: number
-    userIcon: string
-    password: string
-    account: string
+    id?: string;
+    username?: string;
+    account?: string;
+    password?: string;
+    roleId?: number | string;
+    userIcon?: string;
+    token?: string;
+    shoppingCart?: string;
+    collect?: string;
+    address?: string;
 }

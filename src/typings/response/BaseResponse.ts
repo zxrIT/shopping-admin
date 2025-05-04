@@ -1,5 +1,5 @@
-export interface BaseResponse<T = any> {
+export interface BaseResponse<T> {
     code: number;
-    message?: string;
+    message: string;
     data: T;
 }
